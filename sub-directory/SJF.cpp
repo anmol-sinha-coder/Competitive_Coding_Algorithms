@@ -28,66 +28,62 @@ void Sort(Processor arr[], int n)
 
 int index(Processor P[],int c,int t)
 {
- int cur=INT_MAX,count=0;
- static int pos=0;
- if(t==2)
-  while(!P[pos=(++pos)%n].exec && ++count<=n);
- else
+ int cur=INT_MAX,pos=0;
+
   for(int i=0;i<n;i++)
-   if(P[i].AT<=c && P[i].exec<cur && P[i].exec)
-    cur=P[pos=i].exec;
+   if(P[i].AT<=c && P[i].exec)
+     if(P[i].exec<cur)
+      cur=P[pos=i].exec;
+     else if(P[i].exec==cur)
+      break;
    else if(!P[i].exec)
-    cur=INT_MAX;
+     cur=INT_MAX;
 
  return pos;
 }
 
 int main()
 {
- printf("Standard Terms: \tAT-->Arrival Time\tBT-->Burst Time\n\t\t TAT-->Turnaround Time\tWT-->Wait Time\n"<<endl;
+ cout<<"Standard Terms: \tAT-->Arrival Time\tBT-->Burst Time\n\t\t TAT-->Turnaround Time\tWT-->Wait Time\n"<<endl;
  int sum=0,c=0,I=0,t=0;
- printf("Enter number of Processors: "; scanf(n;
+ cout<<"Enter number of Processors: "; cin>>n;
  Processor *P = new Processor[n];
- printf("\tAT  BT\n";
+ cout<<"\tAT   BT\n";
  for(int i=0;i<n;i++)
  {
-  printf("P-"<<i+1<<"\t ";
-  scanf(P[i].AT>>P[i].exec;
+  cout<<"P-"<<i+1<<"\t ";
+  cin>>P[i].AT>>P[i].exec;
   P[i].val=i+49; P[i].flag=1; P[i].TAT=0;
   sum+=(P[i].BT=P[i].exec);
  }
  Sort(P,n);
 
-printf(endl<<" |"<<c;
+cout<<endl<<" |"<<c;
 while(c<sum)
 {
  t=0;
- if(P[I].flag)
- {
-  P[I].flag=0;
-  P[I].TAT=c;
- }
- while(t<2) // while(P[I].exec!=0)
+/* PreEmptive Job */     /* Non-Preemptive */
+ while(I==index(P,c,t)) // while(P[I].exec!=0)
  {
   c++;
   t++;
   P[I].exec--;
-  if(!P[I].exec){P[I].TAT=c-P[I].TAT; break;}
-  if(I!=index(P,c,t) && t!=2 || I==index(P,c,t) && t==2) break; //if(!P[I].exec || I!=index(P,c,t) && t!=2)
+  if(!P[I].exec) break;
  }
-  for(int j=1;j<=t;j++)printf("--";
+  for(int j=1;j<=t;j++)cout<<"--";
   Sleep(100);
-  printf("{P"<<P[I].val<<"}";
-  //if(!t)printf("===";
+  cout<<"{P"<<P[I].val<<"}";
+  if(!t)cout<<"===";
   Sleep(100);
-  for(int j=1;j<=t;j++)printf("--";
-  printf(c;
+  for(int j=1;j<=t;j++)cout<<"--";
+  cout<<c;
+  if(!P[I].exec) P[I].TAT=c-P[I].AT;
   I=index(P,c,t);
  }
- printf("|"<<endl<<endl;
- printf(" P\tAT\tWT\tTAT\n_____________________________\n";
+ cout<<"|"<<endl<<endl;
+ cout<<" P\tAT\tWT\tTAT\n_____________________________\n";
  for(int i=0;i<n;i++)
-  printf("P-"<<P[i].val<<"\t"<<P[i].AT<<"\t"<<(P[i].TAT-P[i].BT)<<"\t"<<P[i].TAT<<endl;
+  cout<<"P-"<<P[i].val<<"\t"<<P[i].AT<<"\t"<<(P[i].TAT-P[i].BT)<<"\t"<<P[i].TAT<<endl;
 
  return 0;
 }

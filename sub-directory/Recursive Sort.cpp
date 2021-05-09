@@ -9,7 +9,6 @@ int Merge(int A[],int lb,int m,int ub)
  int i=lb,j=m+1,t[ub-lb+1],k=0;
  int inv_count=0;
  while(i<=m && j<=ub)   //assuming the two arrays are sorted, we fill array with whichever index's element is smaller
- {
   if(A[i]<A[j])
    t[k++]=A[i++];
   else
@@ -18,13 +17,12 @@ int Merge(int A[],int lb,int m,int ub)
     t[k++]=A[j++];
     inv_count+=m+1-i;
    }
- }
 
  while(i<=m)        //for putting the remaining elements in array
-  {t[k++]=A[i++];}
+  t[k++]=A[i++];
 
  while(j<=ub)      //for putting the remaining elements in array, remember only either i or j is filled into array
-  {t[k++]=A[j++];}
+  t[k++]=A[j++];
 
  for(i=lb;i<=ub;i++)
     A[i]=t[i-lb];
@@ -90,14 +88,14 @@ void transpose(int **A,int r,int c)
 int main()
 {
     int ic;
-        cout<<"Enter number of elements required: ";
+    cout<<"Enter number of elements required: ";
     cin>>n;
-    int A[n];
+    long unsigned int A[n];
     cout<<"Enter "<<n<<" elements: ";
     for (int i=0;i<n;i++)
      cin>>A[i];
- //   quickSort(A,0,n-1);
-    ic = MergeSort(A,0,n-1);
+    quickSort(A,0,n-1);
+    /*ic = MergeSort(A,0,n-1);
     cout<<endl<<"_________________________"<<endl<<"FINAL SORTED ARRAY\n ";
     for (int i=0;i<n;i++)
      cout<<A[i]<<",";
@@ -119,7 +117,7 @@ int main()
       t=1;
      }
 
-    cout<<"\nFrequency = "<<c<<endl<<"Mode = "<<num;
+    cout<<"\nFrequency = "<<c<<endl<<"Mode = "<<num;*/
 cout<<endl<<endl;
  return 0;
 }

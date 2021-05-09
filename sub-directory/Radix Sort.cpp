@@ -3,6 +3,24 @@
 #define MAX 20
 using namespace std;
 
+void count_sort()
+{
+   int big=A[0];
+   for(int i=0;i<n;i++)
+    if(big<A[i])
+     big=A[i];
+
+   int c[1+big]={0},B[n]={0};
+  for (int i = 0; i <= big; i++)
+   c[i] = 0;
+  for (int j = 0; j < n; j++)
+   c[A[j]]++;
+  for (int i = 0; i <= big; i++)
+   c[i] += c[i-1];
+  for (int j = n-1; j >= 0; j--)
+   B[--c[A[j]]] = A[j];
+}
+
 int Large(int A[], int n)
 {
     int mx = A[0];
